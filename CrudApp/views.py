@@ -45,3 +45,15 @@ def album_form(request):
     diction = {'title':"album_form",'album_form':form}
 
     return render(request,'CrudApp/album_form.html',context=diction)
+
+def edit_artist(request,artist_id):
+    artist_info = Musician.objects.get(pk=artist_id)
+    form = forms.MusicianForm(instance=artist_info)
+    if request.method == 'POST':
+        form = forms.MusicianForm(request.POST,instance = artist_info)
+
+        if form.is_valid():
+            form.save(commit=True)
+
+    diction= {'title':"Edit Artist",'edit_form':form}
+    return render(request,'CrudApp/edit_artist.html',context=diction)

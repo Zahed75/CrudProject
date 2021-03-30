@@ -1,0 +1,11 @@
+{% extends 'CrudApp/base.html' %}
+
+{% block header_block %}
+<h3>Artist Edit:</h3>
+<form  method="POST">
+{{ edit_form.as_p }}
+{% csrf_token %}
+<input type="submit" name="submit" value="Update" class="btn btn-info btn-sm">
+</form>
+
+{% endblock %}
