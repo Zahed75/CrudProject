@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from CrudApp.models import Musician,Album
 from CrudApp import forms
+from django.db.models import Avg,Max,Min
 # Create your views here.
 
 def index(request):
@@ -12,9 +13,10 @@ def index(request):
 
 def album_list(request,artist_id):
     artist_info = Musician.objects.get(pk=artist_id)
-    album_info = Album.objects.filter(artist=artist_id)
+    album_info = Album.objects.filter(artist=artist_id).order_by('name','release_date')
+    artist_rating = Album.objects.filter(artist=artist_id).aggregate(Avg('num_stars'))
 
-    diction = {'title':"Album",'artist_info':artist_info,'album_info':album_info}
+    diction = {'title':"Album",'artist_info':artist_info,'album_info':album_info,'artist_rating':artist_rating}
     return render(request,'CrudApp/album_list.html',context=diction)
 
 
