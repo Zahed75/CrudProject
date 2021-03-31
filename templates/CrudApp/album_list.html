@@ -14,11 +14,10 @@
   </tr>
   {% for album in album_info %}
   <tr>
-    <td>{{album.name}}</td>
-    <td>{{album.release_date| date:"M d Y"}}</td>
-    <td>{{album.num_stars}}</td>
-
-  </tr>
+   <td><a href="{% url 'CrudApp:edit_album' album_id=album.id %}">{{ album.name }}</a></td>
+   <td>{{ album.release_date|date:"M d, Y" }}</td>
+   <td>{{ album.num_stars }}</td>
+ </tr>
   {% endfor%}
 </table>
 {% endblock %}
